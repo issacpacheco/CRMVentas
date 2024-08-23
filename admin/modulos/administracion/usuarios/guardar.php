@@ -16,7 +16,7 @@ $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_SPECIAL_CHARS);
 $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if ($opcion == 'agregar') {
-    $qry = "INSERT INTO usuarios (usuario, password, nivel) VALUES ('{$usuario}','{$password}','{$nivel}')";
+    $qry = "INSERT INTO usuarios (usuario, password, nivel, id_almacen) VALUES ('{$usuario}','{$password}','{$nivel}','{$_SESSION['id_almacen']}')";
     $id = $ejecucion->ejecuta($qry);
     if ($id > 0) {
         echo "1";

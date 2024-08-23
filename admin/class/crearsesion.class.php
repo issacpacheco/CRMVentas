@@ -1,16 +1,19 @@
 <?php
 
 namespace nsnewsesion;
+
 use conexionbd\mysqlconsultas;
 
-class newsesion extends mysqlconsultas{
+class newsesion extends mysqlconsultas
+{
 
-    public function crearsesion($id, $usuario, $nivel){
+    public function crearsesion($id, $usuario, $nivel, $id_almacen)
+    {
 
         if (session_status() == PHP_SESSION_NONE) {
-            ini_set("session.cookie_lifetime","86400");
-            ini_set("session.gc_maxlifetime","86400");  
-            session_start();            
+            ini_set("session.cookie_lifetime", "86400");
+            ini_set("session.gc_maxlifetime", "86400");
+            session_start();
             session_regenerate_id();
             session_write_close();
         }
@@ -18,16 +21,18 @@ class newsesion extends mysqlconsultas{
         $_SESSION['id'] = $id;
         $_SESSION['usuario'] = $usuario;
         $_SESSION['nivel'] = $nivel;
-
+        $_SESSION['id_almacen'] = $id_almacen;
     }
 
-    public function login($usuario, $password){
+    public function login($usuario, $password)
+    {
         $qry = "SELECT * FROM usuarios WHERE usuario = '{$usuario}' AND password = '{$password}'";
         $res = $this->consulta($qry);
         return $res;
     }
 
-    public function leerDatos() {
+    public function leerDatos()
+    {
         // session_start();
 
         if (!isset($_SESSION["id"])) {
@@ -43,7 +48,8 @@ class newsesion extends mysqlconsultas{
         echo json_encode($res);
     }
 
-    public function destruir() {
+    public function destruir()
+    {
         // Inicializar la sesión.
         // Si está usando session_name("algo"), ¡no lo olvide ahora!
         // session_start();
@@ -55,9 +61,14 @@ class newsesion extends mysqlconsultas{
         // Nota: ¡Esto destruirá la sesión, y no la información de la sesión!
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
             );
         }
 
@@ -66,4 +77,3 @@ class newsesion extends mysqlconsultas{
         session_write_close();
     }
 }
- 

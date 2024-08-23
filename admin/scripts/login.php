@@ -18,7 +18,8 @@ if ($inicio > 0) {
     $id = $logeo['id'][0];
     $usuario = $logeo['usuario'][0];
     $nivel = $logeo['nivel'][0];
-    $sesion->crearsesion($id,$usuario,$nivel);
+    $id_almacen = $logeo['id_almacen'][0];
+    $sesion->crearsesion($id, $usuario, $nivel, $id_almacen);
     echo "1";
 } else {
     echo "-1";

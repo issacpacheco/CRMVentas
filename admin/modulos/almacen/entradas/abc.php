@@ -17,6 +17,8 @@ $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
 $productos = $administracion->obtener_lista_productos();
 $cproductos = $funciones->cuentarray($productos);
 
+echo "Hola mundo";
+
 ?>
 <div class="row mb-2">
     <div class="col-12">
@@ -34,24 +36,27 @@ $cproductos = $funciones->cuentarray($productos);
 <div class="row">
     <div class="col-sm-12">
         <form action="#" method="post" id="form_abc" enctype="multipart/form-data">
-            <div class="row mb-3">
+            <div class="row mb-3" id="lista_entrada">
                 <div class="col-sm-4">
                     <label>Seleciona el producto</label>
-                    <select name="id_producto[]" id="id_producto" class="form-control">
+                    <select name="producto[]" id="producto_0" class="form-control">
                         <option value="0" selected>Selecciona un producto</option>
-                        <?php for($i = 0; $i < $cproductos; $i++){ ?>
+                        <?php for ($i = 0; $i < $cproductos; $i++) { ?>
                             <option value="<?php echo $productos['id'][$i] ?>"><?php echo $productos['nombre'][$i] ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <label>Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" class="form-control" value="">
+                    <input type="number" name="cantidad[]" id="cantidad_0" class="form-control" value="">
                 </div>
             </div>
-            <div class="row mb-3">
+            <div id="nueva_lista">
+
+            </div>
+            <div class="row mb-3" id="clon">
                 <div class="col-sm-3">
-                    <button type="button" class="btn btn-success" onclick="AgregarLista();">Agregar +</button>
+                    <button type="button" class="btn btn-success clonadorboton" id="clonador_1" onclick="ClonarDIV();">Agregar +</button>
                 </div>
             </div>
             <div class="row">
@@ -105,12 +110,6 @@ $cproductos = $funciones->cuentarray($productos);
         focusCleanup: true, //If enabled, removes the errorClass from the invalid elements and hides all error messages whenever the element is focused
         ignore: "",
         rules: {
-            nombre: {
-                required: true,
-            },
-            estatus: {
-                required: true
-            }
         },
 
         submitHandler: function(form) {
@@ -214,32 +213,41 @@ $cproductos = $funciones->cuentarray($productos);
         });
     }
 
-    function CalcularPrecio() {
-        var precio_inicial = document.getElementById("precio_original").value;
-        var porcentaje_ganancia = document.getElementById("porcentaje_ganancia").value;
-        var precio_final = 0;
+    function ClonarDIV() {
+        var original = document.getElementById("lista_entrada");
+        var clone = original.cloneNode(original);
+        var nuevo = document.getElementById("nueva_lista");
+        nuevo.appendChild(clone);
+        var contador = original.childElementCount;
+        if (contador == 1) {
+            var nuevo_div = nuevo.appendChild(clone);
+            var numero = Number(contador + 1);
+            var selector = nuevo_div.children[0].children[0];
+            var cantidad = nuevo_div.children[1].children[0];
 
-        console.log(precio_inicial);
-
-        var precio_porcentaje_ganancia = parseFloat(precio_inicial * (porcentaje_ganancia / 100));
-        precio_final = (parseFloat(precio_porcentaje_ganancia) + parseFloat(precio_inicial));
-        document.getElementById("precio_venta").value = precio_final;
-    }
-
-    function IncluyeIVA() {
-        if ($('#switch_iva').is(':checked')) {
-            var precio_venta = document.getElementById("precio_venta").value;
-            var iva = parseFloat(precio_venta * 0.16);
-            var total = (parseFloat(precio_venta) + parseFloat(iva));
-            document.getElementById("precio_venta").value = total;
+            cantidad.id = "cantidad_" + numero;
+            selector.id = "producto_" + numero;
+            var span                    = documento.children[0].children[0].children[1].children[2];
+            
+            span.parentElement.removeChild(span)
         } else {
-            var precio_inicial = document.getElementById("precio_original").value;
-            var porcentaje_ganancia = document.getElementById("porcentaje_ganancia").value;
-            var precio_final = 0;
+            var nuevo_div = nuevo.appendChild(clone);
+            var numero = Number(contador + 1);
+            var selector = nuevo_div.children[0].children[0];
+            var cantidad = nuevo_div.children[1].children[0];
 
-            var precio_porcentaje_ganancia = parseFloat(precio_inicial * (porcentaje_ganancia / 100));
-            precio_final = (parseFloat(precio_porcentaje_ganancia) + parseFloat(precio_inicial));
-            document.getElementById("precio_venta").value = precio_final;
+            cantidad.id = "cantidad_" + numero;
+            selector.id = "producto_" + numero;
         }
+        var boton_eliminar = document.createElement("button");
+        boton_eliminar.textContent = 'Eliminar fila -';
+        boton_eliminar.classList = 'btn btn-danger btn-group mb-2';
+        boton_eliminar.addEventListener('click', () => {eliminar(event,clone)});
+        document.getElementById('nueva_lista').appendChild(boton_eliminar);
     }
-</script>
+
+    function eliminar(event,div){
+        event.target.parentElement.removeChild(event.target);
+        div.parentElement.removeChild(div);
+    }
+</script> 

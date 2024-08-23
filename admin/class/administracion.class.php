@@ -75,11 +75,11 @@ class administracion extends mysqlconsultas
     }
 
     public function obtener_productos_entrada(){
-        $qry = "SELECT p.nombre, e.fecha_registro, e.hora_registro, e.cantidad, u.usuario
+        $qry = "SELECT e.id, p.nombre, e.fecha_registro, e.hora_registro, e.cantidad, u.usuario
         FROM  entradas e 
         LEFT JOIN productos p ON p.id = e.id_producto 
         LEFT JOIN usuarios u ON u.id = e.id_usuario 
-        WHERE e.id_almacen = '1'";
+        WHERE e.id_almacen = '{$_SESSION['id_almacen']}'";
         $res = $this->consulta($qry);
         return $res;
     }

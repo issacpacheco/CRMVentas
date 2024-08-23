@@ -40,7 +40,7 @@ $cproducto = $funcion->cuentarray($producto);
                             <th>Fecha de entrada</th>
                             <th>Hora hora</th>
                             <th>Cantidad</th>
-                            <th>Accion</th>
+                            <!-- <th>Accion</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -51,10 +51,10 @@ $cproducto = $funcion->cuentarray($producto);
                                 <td><?php echo $producto['fecha_registro'][$i]; ?></td>
                                 <td><?php echo $producto['hora_registro'][$i]; ?></td>
                                 <td><?php echo $producto['cantidad'][$i]; ?></td>
-                                <td class="table-action">
+                                <!-- <td class="table-action">
                                     <a href="javascript: void(0);" class="btn btn-success m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','editar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-pencil"></i></a>
-                                    <!-- <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a> -->
-                                </td>
+                                    <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a>
+                                </td> -->
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -64,7 +64,7 @@ $cproducto = $funcion->cuentarray($producto);
                             <th>Fecha de entrada</th>
                             <th>Hora hora</th>
                             <th>Cantidad</th>
-                            <th>Accion</th>
+                            <!-- <th>Accion</th> -->
                         </tr>
                     </tfoot>
                 </table>
