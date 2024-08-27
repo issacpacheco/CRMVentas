@@ -84,6 +84,16 @@ class administracion extends mysqlconsultas
         return $res;
     }
 
+    public function obtener_productos_salida(){
+        $qry = "SELECT s.id, p.nombre, s.fecha_registro, s.hora_registro, s.cantidad, u.usuario
+        FROM  salidas s 
+        LEFT JOIN productos p ON p.id = s.id_producto 
+        LEFT JOIN usuarios u ON u.id = s.id_usuario 
+        WHERE s.id_almacen = '{$_SESSION['id_almacen']}'";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
     public function obtener_lista_productos(){
         $qry = "SELECT * FROM productos";
         $res = $this->consulta($qry);

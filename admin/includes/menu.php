@@ -80,7 +80,7 @@
                 <a class="collapse-item" href="javascript:void(0);" onclick="Vista('almacen','categorias','catalogo')">Categorias</a>
                 <a class="collapse-item" href="javascript:void(0);" onclick="Vista('almacen','productos','catalogo')">Lista de productos</a>
                 <a class="collapse-item" href="javascript:void(0);" onclick="Vista('almacen','entradas','catalogo')">Entradas</a>
-                <a class="collapse-item" href="javascript:void(0);">Salidas</a>
+                <a class="collapse-item" href="javascript:void(0);" onclick="Vista('almacen','salidas','catalogo')">Salidas</a>
                 <a class="collapse-item" href="javascript:void(0);">Transferencias</a>
             </div>
         </div>
