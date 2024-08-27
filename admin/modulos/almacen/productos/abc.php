@@ -124,7 +124,17 @@ $ccategorias = $funciones->cuentarray($categorias);
                         } ?>
                     </select>
                 </div>
-                <input type="file" name="imagen_producto" id="imagen_producto">
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-12 mb-2">
+
+                </div>
+                <div class="col-sm-12">
+                    <input type="file" name="file" id="file" accept="image/x-png,img/jpg">
+                    <div class="upload-area fullimportant" id="uploadfile">
+                        <h1>Arrastra y suelta el archivo aqui <br> Selecciona el archivo</h1>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-8">
@@ -313,5 +323,21 @@ $ccategorias = $funciones->cuentarray($categorias);
             precio_final = (parseFloat(precio_porcentaje_ganancia) + parseFloat(precio_inicial));
             document.getElementById("precio_venta").value = precio_final;
         }
+    }
+
+    function uploadData(formdata) {
+        $.ajax({
+            url: 'modulos/<?php echo $menu; ?>/<?php echo $modulo; ?>/guardar',
+            type: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            dataType: json,
+            success: addThumbnail(response)
+        })
+    }
+
+    function addThumbnail(data) {
+
     }
 </script>
