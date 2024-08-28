@@ -39,6 +39,7 @@ $ccategorias = $funciones->cuentarray($categorias);
 <div class="row">
     <div class="col-sm-12">
         <form action="#" method="post" id="form_abc" enctype="multipart/form-data">
+            <input type="hidden" name="id_producto" id="id_producto" value="<?php echo $producto['id'][0] ?>">
             <div class="row mb-3">
                 <div class="col-sm-4">
                     <label>Nombre</label>
@@ -216,7 +217,7 @@ $ccategorias = $funciones->cuentarray($categorias);
 
     function Guardar() {
 
-        //var data = new FormData($('#form_abc'));
+        //let data = new FormData($('#form_abc'));
         $('#boton_guardar').empty();
         $('#boton_guardar').prop('disabled', true);
         $('#boton_guardar').append('<i class="fas fa-spinner fa-spin"></i> Enviando...');
@@ -303,7 +304,7 @@ $ccategorias = $funciones->cuentarray($categorias);
 
     function uploadData(formdata) {
         $.ajax({
-            url: 'modulos/<?php echo $menu; ?>/<?php echo $modulo; ?>/guardar',
+            url: 'modulos/<?php echo $menu; ?>/<?php echo $modulo; ?>/upload',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -314,6 +315,98 @@ $ccategorias = $funciones->cuentarray($categorias);
     }
 
     function addThumbnail(data) {
-        
+        let len = $("#cajongaleria div.thumbnail").length;
+
+        let num = Number(len);
+        num = num + 1;
+        console.log(data);
+        let name = data.name;
+        let size = convertSize(data.size);
+        let src = data.src;
+        let id = data.idfoto;
+        let page = "eliminar-foto-material";
+
+        // Creating an thumbnail 
+        let thumb = '<div class="thumbnail" id="foto_' + id + '">\n\
+                     <img src="upload/materiales/<?php echo $id; ?>/' + name + '" />\n\
+                      <div class="portaelimina">\n\
+                        <span onclick="eliminarImagen(\'' + id + '\', \'' + name + '\')" class="borrarimagen fas fa-trash-alt letraroja font18 pointer tooltip" title="Eliminar imagen"></span>\n\
+                        <i class="borrarimagen fal fa-trash-alt" onclick="eliminarImagen(\'' + id + '\', \'' + name + '\',\'' + page + '\')" title="Eliminar imagen"></i>\n\
+                      </div>\n\
+                    </div>';
+
+        $("#cajongaleria").append(thumb);
+
+        $("#uploadfile").html("<h1>Arrastra y suelta el archivo aqui<br />O<br />Selecciona el archivo</h1>");
     }
+
+    // Bytes conversion
+    function convertSize(size) {
+        let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (size == 0)
+            return '0 Byte';
+        let i = parseInt(Math.floor(Math.log(size) / Math.log(1024)));
+        return Math.round(size / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    }
+
+    // preventing page from redirecting
+    $("html").on("drop", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
+    // Drag enter
+    $('.upload-area').on('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $("#uploadfile h1").text("Suelta la imagen aqui");
+    });
+
+    // Drag over
+    $('.upload-area, html').on('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $("#uploadfile h1").text("Suelta la imagen aqui");
+    });
+
+    $('html').on("dragleave", function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $("#uploadfile").html("<h1>Arrastra y suelta el archivo aqui<br />O<br />Selecciona el archivo</h1>");
+    });
+
+    // Drop
+    $('.upload-area').on('drop', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $("#uploadfile h1").text("Subiendo imagen....");
+
+        let file = e.originalEvent.dataTransfer.files;
+        let id_producto = $("#id_producto").val();
+        let fd = new FormData();
+
+        fd.append('file', file[0]);
+        fd.append('id', id_producto);
+
+        uploadData(fd);
+    });
+
+    // Open file selector on div click
+    $("#uploadfile").click(function() {
+        $("#file").click();
+    });
+
+    // file selected
+    $("#file").change(function() {
+        $("#uploadfile h1").text("Subiendo imagen....");
+        let fd = new FormData();
+
+        let files = $('#file')[0].files[0];
+        let id_producto = $("#id_producto").val();
+
+        fd.append('file', files);
+        fd.append('id', id_producto);
+        uploadData(fd);
+    });
 </script>
