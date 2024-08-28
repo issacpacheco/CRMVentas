@@ -22,6 +22,7 @@ class administracion extends mysqlconsultas
 
     public function obtener_almacenes()
     {
+        //Consulta sql de almacenes
         $qry = "SELECT * FROM almacen";
         $res = $this->consulta($qry);
         return $res;
@@ -50,11 +51,12 @@ class administracion extends mysqlconsultas
 
     public function obtener_productos()
     {
+        //Consulta sql de productos con entidad releacion a unidades de medida y productos por almacen
         $qry = "SELECT p.id, p.nombre, p.descripcion, a.cantidad, u.nombre AS unidad_medida 
                 FROM productos p 
                 LEFT JOIN productos_almacen a ON a.id_producto = p.id 
                 LEFT JOIN unidades_medida u ON u.id = p.id_unidad
-                WHERE a.id_almacen = '1'";
+                WHERE a.id_almacen = '{$_SESSION['id_almacen']}'";
         $res = $this->consulta($qry);
         return $res;
     }
@@ -96,6 +98,12 @@ class administracion extends mysqlconsultas
 
     public function obtener_lista_productos(){
         $qry = "SELECT * FROM productos";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_prospectos(){
+        $qry = "SELECT * FROM prospectos";
         $res = $this->consulta($qry);
         return $res;
     }

@@ -13,7 +13,8 @@ $vista = filter_input(INPUT_POST, 'vista', FILTER_SANITIZE_SPECIAL_CHARS);
 $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_SPECIAL_CHARS);
 $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$usuario = $administracion->obtener_almacen($token);
+//Consulta de almacenes
+$almacen = $administracion->obtener_almacen($token);
 
 ?>
 <div class="row mb-2">
@@ -35,14 +36,14 @@ $usuario = $administracion->obtener_almacen($token);
             <div class="row mb-3">
                 <div class="col-sm-4">
                     <label>Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $usuario['nombre'][0] ?>">
+                    <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $almacen['nombre'][0] ?>">
                 </div>
                 <div class="col-sm-4">
                     <label>Estatus</label>
                     <select name="estatus" id="estatus" class="form-control">
                         <option value="" selected>Selecciona una opción</option>
-                        <option value="1" <?php echo $usuario['estatus'][0] == 1 ? 'selected' : ''; ?>>Activo</option>
-                        <option value="2" <?php echo $usuario['estatus'][0] == 2 ? 'selected' : ''; ?>>inactivo</option>
+                        <option value="1" <?php echo $almacen['estatus'][0] == 1 ? 'selected' : ''; ?>>Activo</option>
+                        <option value="2" <?php echo $almacen['estatus'][0] == 2 ? 'selected' : ''; ?>>inactivo</option>
                     </select>
                 </div>
             </div>
