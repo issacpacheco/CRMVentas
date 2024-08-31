@@ -129,7 +129,7 @@ $ccategorias = $funciones->cuentarray($categorias);
             <div class="row mb-2">
                 <div class="col-sm-12 mb-2 full border-gris" id="cajongaleria">
                     <div class="thumbnail">
-                        <img src="" alt="">
+                        <img src="" alt="" class="responsive">
                         <div class="portaelimina">
                             <i class="fal fa-trash borrarimagen"></i>
                         </div>
@@ -309,8 +309,10 @@ $ccategorias = $funciones->cuentarray($categorias);
             data: formdata,
             contentType: false,
             processData: false,
-            dataType: json,
-            success: addThumbnail()
+            dataType: 'json',
+            success: function(response) {
+                addThumbnail(response);
+            }
         })
     }
 
@@ -320,7 +322,7 @@ $ccategorias = $funciones->cuentarray($categorias);
         let num = Number(len);
         num = num + 1;
         console.log(data);
-        let name = data.name;
+        let name = data.nombre;
         let size = convertSize(data.size);
         let src = data.src;
         let id = data.idfoto;
@@ -328,7 +330,7 @@ $ccategorias = $funciones->cuentarray($categorias);
 
         // Creating an thumbnail 
         let thumb = '<div class="thumbnail" id="foto_' + id + '">\n\
-                     <img src="upload/materiales/<?php echo $id; ?>/' + name + '" />\n\
+                     <img src="upload/material/' + id + '/' + name + '" class="responsive" />\n\
                       <div class="portaelimina">\n\
                         <span onclick="eliminarImagen(\'' + id + '\', \'' + name + '\')" class="borrarimagen fas fa-trash-alt letraroja font18 pointer tooltip" title="Eliminar imagen"></span>\n\
                         <i class="borrarimagen fal fa-trash-alt" onclick="eliminarImagen(\'' + id + '\', \'' + name + '\',\'' + page + '\')" title="Eliminar imagen"></i>\n\
@@ -387,7 +389,7 @@ $ccategorias = $funciones->cuentarray($categorias);
         let fd = new FormData();
 
         fd.append('file', file[0]);
-        fd.append('id', id_producto);
+        fd.append('token', id_producto);
 
         uploadData(fd);
     });
@@ -406,7 +408,7 @@ $ccategorias = $funciones->cuentarray($categorias);
         let id_producto = $("#id_producto").val();
 
         fd.append('file', files);
-        fd.append('id', id_producto);
+        fd.append('token', id_producto);
         uploadData(fd);
     });
 </script>

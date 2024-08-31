@@ -45,3 +45,7 @@
 .border-gris {
     border: 1px solid #ccc;
 }
+
+.responsive {
+    max-width: 100%;
+}
