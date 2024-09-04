@@ -70,13 +70,15 @@ class administracion extends mysqlconsultas
         return $res;
     }
 
-    public function obtener_unidades_medida(){
+    public function obtener_unidades_medida()
+    {
         $qry = "SELECT * FROM unidades_medida";
         $res = $this->consulta($qry);
         return $res;
     }
 
-    public function obtener_productos_entrada(){
+    public function obtener_productos_entrada()
+    {
         $qry = "SELECT e.id, p.nombre, e.fecha_registro, e.hora_registro, e.cantidad, u.usuario
         FROM  entradas e 
         LEFT JOIN productos p ON p.id = e.id_producto 
@@ -86,7 +88,8 @@ class administracion extends mysqlconsultas
         return $res;
     }
 
-    public function obtener_productos_salida(){
+    public function obtener_productos_salida()
+    {
         $qry = "SELECT s.id, p.nombre, s.fecha_registro, s.hora_registro, s.cantidad, u.usuario
         FROM  salidas s 
         LEFT JOIN productos p ON p.id = s.id_producto 
@@ -96,19 +99,26 @@ class administracion extends mysqlconsultas
         return $res;
     }
 
-    public function obtener_lista_productos(){
+    public function obtener_lista_productos()
+    {
         $qry = "SELECT * FROM productos";
         $res = $this->consulta($qry);
         return $res;
     }
 
-    public function obtener_prospectos(){
-        $qry = "SELECT * FROM prospectos";
+    public function obtener_prospectos()
+    {
+        $qry = "SELECT p.id, 
+                CONCAT(p.nombre, ' ', p.paterno, ' ', p.materno) AS nombre_prospecto, 
+                p.correo, p.telefono, p.fecha_registro,  
+                CONCAT(u.nombre, ' ', u.paterno, ' ', u.materno) AS usuario_registro
+                FROM prospectos p 
+                LEFT JOIN usuarios u ON u.id = p.id_usuario_registro";
         $res = $this->consulta($qry);
         return $res;
     }
 
-   
+
     public function obtener_prospecto($token)
     {
         $qry = "SELECT * FROM prospectos WHERE md5(id) = '{$token}'";
@@ -116,7 +126,8 @@ class administracion extends mysqlconsultas
         return $res;
     }
 
-    public function obtener_clientes(){
+    public function obtener_clientes()
+    {
         $qry = "SELECT * FROM clientes";
         $res = $this->consulta($qry);
         return $res;
@@ -129,4 +140,17 @@ class administracion extends mysqlconsultas
         return $res;
     }
 
+    public function obtener_estados()
+    {
+        $qry = "SELECT * FROM estados";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_municipios()
+    {
+        $qry = "SELECT * FROM municipios";
+        $res = $this->consulta($qry);
+        return $res;
+    }
 }

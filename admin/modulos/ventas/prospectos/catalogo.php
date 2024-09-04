@@ -41,6 +41,7 @@ $cprospecto = $funcion->cuentarray($prospecto);
                             <th>Correo</th>
                             <th>Telefono</th>
                             <th>Fecha Registro</th>
+                            <th>Usuario que regitro</th>
                             <th>Accion</th>
                         </tr>
                     </thead>
@@ -48,10 +49,11 @@ $cprospecto = $funcion->cuentarray($prospecto);
                         <?php
                         for ($i = 0; $i < $cprospecto; $i++) { ?>
                             <tr>
-                                <td><?php echo $prospecto['nombre'][$i]; ?></td>
+                                <td><?php echo $prospecto['nombre_prospecto'][$i]; ?></td>
                                 <td><?php echo $prospecto['correo'][$i]; ?></td>
                                 <td><?php echo $prospecto['telefono'][$i]; ?></td>
                                 <td><?php echo $prospecto['fecha_registro'][$i]; ?></td>
+                                <td><?php echo $prospecto['usuario_registro'][$i]; ?></td>
                                 <td class="table-action">
                                     <a href="javascript: void(0);" class="btn btn-success m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','editar','<?php echo md5($prospecto['id'][$i]); ?>')"> <i class="fal fa-pencil"></i></a>
                                     <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($prospecto['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a>
@@ -65,6 +67,7 @@ $cprospecto = $funcion->cuentarray($prospecto);
                             <th>Correo</th>
                             <th>Telefono</th>
                             <th>Fecha Registro</th>
+                            <th>Usuario que regitro</th>
                             <th>Accion</th>
                         </tr>
                     </tfoot>

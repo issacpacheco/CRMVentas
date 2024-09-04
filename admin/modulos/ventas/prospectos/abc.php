@@ -15,6 +15,12 @@ $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
 
 //Consulta del prospecto a editar o eliminar
 $prospecto = $administracion->obtener_prospecto($token);
+//Consulta de estados de México
+$estados = $administracion->obtener_estados();
+$cestados = $funciones->cuentarray($estados);
+//Consulta de municipios de México
+$municipios = $administracion->obtener_municipios();
+$cmunicipios = $funciones->cuentarray($municipios);
 
 
 ?>
@@ -40,14 +46,50 @@ $prospecto = $administracion->obtener_prospecto($token);
                     <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $prospecto['nombre'][0] ?>">
                 </div>
                 <div class="col-sm-4">
+                    <label>Apellido paterno</label>
+                    <input type="text" name="paterno" id="paterno" class="form-control" value="<?php echo $prospecto['paterno'][0] ?>">
+                </div>
+                <div class="col-sm-4">
+                    <label>Apellido materno</label>
+                    <input type="text" name="materno" id="materno" class="form-control" value="<?php echo $prospecto['materno'][0] ?>">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-3">
                     <label>Correo</label>
                     <input type="text" name="correo" id="correo" class="form-control" value="<?php echo $prospecto['correo'][0] ?>">
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label>Télefono</label>
                     <input type="text" name="telefono" id="telefono" class="form-control" value="<?php echo $prospecto['telefono'][0]; ?>">
                 </div>
-            </div> 
+                <div class="col-sm-3">
+                    <label>Estado</label>
+                    <select name="id_estado" id="id_estado" class="form-control">
+                        <option value="0">Selecciona una opción</option>
+                        <?php for ($i = 0; $i < $cestados; $i++) {
+                            if ($prospectos['id_estado'][0] == $estados['id'][$i]) {
+                                echo "<option value='" . $estados['id'][$i] . "' selected>" . $estados['nombre'][$i] . "</option>";
+                            } else {
+                                echo "<option value='" . $estados['id'][$i] . "'>" . $estados['nombre'][$i] . "</option>";
+                            }
+                        } ?>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label>Municipio</label>
+                    <select name="id_municipio" id="id_municipio" class="form-control">
+                        <option value="0">Selecciona una opción</option>
+                        <?php for ($i = 0; $i < $cmunicipios; $i++) {
+                            if ($prospectos['id_municipio'][0] == $municipios['id'][$i]) {
+                                echo "<option value='" . $municipios['id'][$i] . "' selected>" . $municipios['nombre'][$i] . "</option>";
+                            } else {
+                                echo "<option value='" . $municipios['id'][$i] . "'>" . $municipios['nombre'][$i] . "</option>";
+                            }
+                        } ?>
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-8">
                     <input type="hidden" name="modulo" value="<?php echo $modulo; ?>">
@@ -206,21 +248,5 @@ $prospecto = $administracion->obtener_prospecto($token);
                 Guardar();
             }
         });
-    }
-
-    function uploadData(formdata) {
-        $.ajax({
-            url: 'modulos/<?php echo $menu; ?>/<?php echo $modulo; ?>/guardar',
-            type: 'POST',
-            data: formdata,
-            contentType: false,
-            processData: false,
-            dataType: json,
-            success: addThumbnail()
-        })
-    }
-
-    function addThumbnail(data) {
-        
     }
 </script>
