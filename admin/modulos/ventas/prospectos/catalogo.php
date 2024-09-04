@@ -1,3 +1,4 @@
+
 <?php
 include("../../../class/allClass.php");
 
@@ -11,8 +12,8 @@ $modulo = filter_input(INPUT_POST, 'modulo', FILTER_SANITIZE_SPECIAL_CHARS);
 $vista = filter_input(INPUT_POST, 'vista', FILTER_SANITIZE_SPECIAL_CHARS);
 $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$producto = $admin->obtener_productos();
-$cproducto = $funcion->cuentarray($producto);
+$prospecto = $admin->obtener_prospectos();
+$cprospecto = $funcion->cuentarray($prospecto);
 ?>
 <div class="row mb-2">
     <div class="col-12">
@@ -27,65 +28,47 @@ $cproducto = $funcion->cuentarray($producto);
         </div>
     </div>
 </div>
-<h4 class="page-title">Productos</h4>
+<h4 class="page-title">Prospectos</h4>
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-2">
-                    <div class="col-sm-3">
-                        <label>unidades de medida</label>
-                        <select name="unidad_medida" class="form-control" id="unidad_medida">
-                            <option value="">Selecciona una opción</option>
-                            <?php for ($i = 0; $i < $cunidades; $i++) { ?>
-
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-3 mb-2"></div>
-                    <div class="col-sm-12">
-                        <button class="btn btn-success">Bucar</button>
-                    </div>
-                </div>
                 <a href="javascript: void(0);" class="btn btn-primary btn-lg my-3" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','agregar')"><i class="fal fa-plus"></i> Agregar </a>
-                <div id="contenedor_tabla">
-                    <table class="table table-striped table-centered mb-0" id="tabla">
-                        <thead>
+                <table class="table table-striped table-centered mb-0" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>Fecha Registro</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        for ($i = 0; $i < $cprospecto; $i++) { ?>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Cantidad</th>
-                                <th>Unidada de medida</th>
-                                <th>Accion</th>
+                                <td><?php echo $prospecto['nombre'][$i]; ?></td>
+                                <td><?php echo $prospecto['correo'][$i]; ?></td>
+                                <td><?php echo $prospecto['telefono'][$i]; ?></td>
+                                <td><?php echo $prospecto['fecha_registro'][$i]; ?></td>
+                                <td class="table-action">
+                                    <a href="javascript: void(0);" class="btn btn-success m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','editar','<?php echo md5($prospecto['id'][$i]); ?>')"> <i class="fal fa-pencil"></i></a>
+                                    <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($prospecto['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            for ($i = 0; $i < $cproducto; $i++) { ?>
-                                <tr>
-                                    <td><?php echo $producto['nombre'][$i]; ?></td>
-                                    <td><?php echo $producto['descripcion'][$i]; ?></td>
-                                    <td><?php echo $producto['cantidad'][$i]; ?></td>
-                                    <td><?php echo $producto['unidad_medida'][$i]; ?></td>
-                                    <td class="table-action">
-                                        <a href="javascript: void(0);" class="btn btn-success m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','editar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-pencil"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Cantidad</th>
-                                <th>Unidada de medida</th>
-                                <th>Accion</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                        <?php } ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>Fecha Registro</th>
+                            <th>Accion</th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>

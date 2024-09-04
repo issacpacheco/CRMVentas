@@ -11,8 +11,8 @@ $modulo = filter_input(INPUT_POST, 'modulo', FILTER_SANITIZE_SPECIAL_CHARS);
 $vista = filter_input(INPUT_POST, 'vista', FILTER_SANITIZE_SPECIAL_CHARS);
 $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$producto = $admin->obtener_productos();
-$cproducto = $funcion->cuentarray($producto);
+$cliente = $admin->obtener_clientes();
+$ccliente = $funcion->cuentarray($cliente);
 ?>
 <div class="row mb-2">
     <div class="col-12">
@@ -27,7 +27,7 @@ $cproducto = $funcion->cuentarray($producto);
         </div>
     </div>
 </div>
-<h4 class="page-title">Productos</h4>
+<h4 class="page-title">Clientes</h4>
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
@@ -38,23 +38,23 @@ $cproducto = $funcion->cuentarray($producto);
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Cantidad</th>
-                                <th>Unidada de medida</th>
+                                <th>Correo</th>
+                                <th>Telefono</th>
+                                <th>Fecha Registro</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            for ($i = 0; $i < $cproducto; $i++) { ?>
+                            for ($i = 0; $i < $ccliente; $i++) { ?>
                                 <tr>
-                                    <td><?php echo $producto['nombre'][$i]; ?></td>
-                                    <td><?php echo $producto['descripcion'][$i]; ?></td>
-                                    <td><?php echo $producto['cantidad'][$i]; ?></td>
-                                    <td><?php echo $producto['unidad_medida'][$i]; ?></td>
+                                    <td><?php echo $cliente['nombre'][$i]; ?></td>
+                                    <td><?php echo $cliente['correo'][$i]; ?></td>
+                                    <td><?php echo $cliente['telefono'][$i]; ?></td>
+                                    <td><?php echo $cliente['fecha_registro'][$i]; ?></td>
                                     <td class="table-action">
-                                        <a href="javascript: void(0);" class="btn btn-success m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','editar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-pencil"></i></a>
-                                        <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($producto['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a>
+                                        <a href="javascript: void(0);" class="btn btn-success m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','editar','<?php echo md5($cliente['id'][$i]); ?>')"> <i class="fal fa-pencil"></i></a>
+                                        <a href="javascript: void(0);" class="btn btn-danger m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','abc','eliminar','<?php echo md5($cliente['id'][$i]); ?>')"> <i class="fal fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -62,9 +62,9 @@ $cproducto = $funcion->cuentarray($producto);
                         <tfoot>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Cantidad</th>
-                                <th>Unidada de medida</th>
+                                <th>Correo</th>
+                                <th>Telefono</th>
+                                <th>Fecha Registro</th>
                                 <th>Accion</th>
                             </tr>
                         </tfoot>

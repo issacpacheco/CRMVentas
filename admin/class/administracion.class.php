@@ -107,4 +107,26 @@ class administracion extends mysqlconsultas
         $res = $this->consulta($qry);
         return $res;
     }
+
+   
+    public function obtener_prospecto($token)
+    {
+        $qry = "SELECT * FROM prospectos WHERE md5(id) = '{$token}'";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_clientes(){
+        $qry = "SELECT * FROM clientes";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_cliente($token)
+    {
+        $qry = "SELECT * FROM clientes WHERE md5(id) = '{$token}'";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
 }

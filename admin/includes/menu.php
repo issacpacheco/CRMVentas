@@ -54,8 +54,8 @@
                 <a class="collapse-item" href="javascript:void(0);">Caja</a>
                 <a class="collapse-item" href="javascript:void(0);">Gastos</a>
                 <a class="collapse-item" href="javascript:void(0);">Cotizaciones</a>
-                <a class="collapse-item" href="javascript:void(0);">Prospectos</a>
-                <a class="collapse-item" href="javascript:void(0);">Clientes</a>
+                <a class="collapse-item" href="javascript:void(0);" onclick="Vista('ventas', 'prospectos', 'catalogo')" >Prospectos</a>
+                <a class="collapse-item" href="javascript:void(0);" onclick="Vista('ventas', 'clientes', 'catalogo' )">Clientes</a>
             </div>
         </div>
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="true" aria-controls="collapseReportes">

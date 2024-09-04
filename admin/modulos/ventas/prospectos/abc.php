@@ -13,14 +13,9 @@ $vista = filter_input(INPUT_POST, 'vista', FILTER_SANITIZE_SPECIAL_CHARS);
 $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_SPECIAL_CHARS);
 $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
 
-//Consulta del producto a editar o eliminar
-$producto = $administracion->obtener_producto($token);
-//Consulta de unidades de medida
-$unidades = $administracion->obtener_unidades_medida();
-$cunidades = $funciones->cuentarray($unidades);
-//Consulta de categorias 
-$categorias = $administracion->obtener_categorias();
-$ccategorias = $funciones->cuentarray($categorias);
+//Consulta del prospecto a editar o eliminar
+$prospecto = $administracion->obtener_prospecto($token);
+
 
 ?>
 <div class="row mb-2">
@@ -42,105 +37,17 @@ $ccategorias = $funciones->cuentarray($categorias);
             <div class="row mb-3">
                 <div class="col-sm-4">
                     <label>Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $producto['nombre'][0] ?>">
+                    <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $prospecto['nombre'][0] ?>">
                 </div>
                 <div class="col-sm-4">
-                    <label>Descripcion</label>
-                    <input type="text" name="descripcion" id="descripcion" class="form-control" value="<?php echo $producto['descripcion'][0] ?>">
+                    <label>Correo</label>
+                    <input type="text" name="correo" id="correo" class="form-control" value="<?php echo $prospecto['correo'][0] ?>">
                 </div>
                 <div class="col-sm-4">
-                    <label>codigo interno</label>
-                    <input type="text" name="codigo" id="codigo" class="form-control" value="<?php echo $producto['codigo'][0]; ?>">
+                    <label>Télefono</label>
+                    <input type="text" name="telefono" id="telefono" class="form-control" value="<?php echo $prospecto['telefono'][0]; ?>">
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-3">
-                    <label>SKU</label>
-                    <input type="text" name="sku" id="sku" class="form-control" value="<?php echo $producto['sku'][0]; ?>">
-                </div>
-                <div class="col-sm-3">
-                    <label>Precio original</label>
-                    <input type="text" name="precio_original" id="precio_original" class="form-control" value="<?php echo $producto['precio_original'][0]; ?>" onChange="CalcularPrecio();">
-                </div>
-                <div class="col-sm-3">
-                    <label>Porcentaje de ganancia</label>
-                    <input type="number" name="porcentaje_ganancia" id="porcentaje_ganancia" class="form-control" value="<?php echo $producto['porcentaje_ganancia'][0]; ?>" onchange="CalcularPrecio();">
-                </div>
-                <div class="col-sm-3">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 ms-3">
-                            <p class="h3">Incluye IVA: </p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <div class="form-check" id="card-switchiva">
-                                <label for="switch_iva" data-on-label="Sí" data-off-label="No" class="mb-0 d-block h4"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-3">
-                    <label>Precio venta</label>
-                    <input type="text" name="precio_venta" id="precio_venta" class="form-control" value="<?php echo $producto['precio_venta'][0]; ?>">
-                </div>
-                <div class="col-sm-3">
-                    <label>Cantidad</label>
-                    <input type="text" name="cantidad" id="cantidad" class="form-control" value="<?php echo $producto['cantidad'][0]; ?>">
-                </div>
-                <div class="col-sm-3">
-                    <label>Estatus</label>
-                    <select name="estatus" id="estatus" class="form-control">
-                        <option value="0" selected>Selecciona una opción</option>
-                        <option value="1" <?php echo $producto['estatus'][0] == '1' ? 'selected' : ''; ?>>Activo</option>
-                        <option value="2" <?php echo $producto['estatus'][0] == '2' ? 'selected' : ''; ?>>Inactivo</option>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <label>Unidad de medida</label>
-                    <select name="id_unidad" id="id_unidad" class="form-control">
-                        <option value="0">Selecciona una opcion</option>
-                        <?php for ($i = 0; $i < $cunidades; $i++) {
-                            if ($unidades['id'][$i] == $producto['id_unidad'][0]) { ?>
-                                <option value="<?php echo $unidades['id'][$i]; ?>" selected><?php echo $unidades['nombre'][$i] ?></option>
-                            <?php } else { ?>
-                                <option value="<?php echo $unidades['id'][$i]; ?>"><?php echo $unidades['nombre'][$i]; ?></option>
-                        <?php }
-                        } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-3">
-                    <label>Categoria del producto</label>
-                    <select name="id_categoria" id="id_categoria" class="form-control">
-                        <option value="0">Selecciona una opcion</option>
-                        <?php for ($i = 0; $i < $ccategorias; $i++) {
-                            if ($categorias['id'][$i] == $producto['id_categoria'][0]) { ?>
-                                <option value="<?php echo $categorias['id'][$i]; ?>" selected><?php echo $categorias['nombre'][$i] ?></option>
-                            <?php } else { ?>
-                                <option value="<?php echo $categorias['id'][$i]; ?>"><?php echo $categorias['nombre'][$i]; ?></option>
-                        <?php }
-                        } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-sm-12 mb-2 full border-gris" id="cajongaleria">
-                    <div class="thumbnail">
-                        <img src="" alt="">
-                        <div class="portaelimina">
-                            <i class="fal fa-trash borrarimagen"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <input type="file" name="file" id="file" accept="image/x-png,img/jpg">
-                    <div class="upload-area fullimportant" id="uploadfile">
-                        <h1>Arrastra y suelta el archivo aqui <br> Selecciona el archivo</h1>
-                    </div>
-                </div>
-            </div>
+            </div> 
             <div class="row">
                 <div class="col-sm-8">
                     <input type="hidden" name="modulo" value="<?php echo $modulo; ?>">
