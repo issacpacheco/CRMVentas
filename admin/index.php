@@ -24,6 +24,7 @@ include("class/allClass.php");
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/file-area.css">
+    <link rel="stylesheet" href="css/prospectos.css">
 
 </head>
 

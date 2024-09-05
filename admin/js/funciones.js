@@ -39,7 +39,7 @@ function Vista(menu, modulo, vista, opcion, token) {
     })
 }
 
-function FiltroProspecto(){
+function FiltroProspecto() {
     $.ajax({
         type: 'post',
         url: 'modulos/' + menu + '/' + modulo + '/' + vista,
@@ -82,4 +82,19 @@ function IncluyeIVA() {
         precio_final = (parseFloat(precio_porcentaje_ganancia) + parseFloat(precio_inicial));
         $("#precio_venta").val(precio_final);
     }
+}
+
+function CambiarCiudad(e) {
+    const id_estado = $(e).val();
+    $.ajax({
+        type: 'post',
+        url: 'scripts/obtenermunicipios',
+        data: {
+            id_estado: id_estado,
+        },
+        cache: false,
+        success: function (response) {
+            $('#municipios').html(response);
+        }
+    });
 }

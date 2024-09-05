@@ -153,4 +153,48 @@ class administracion extends mysqlconsultas
         $res = $this->consulta($qry);
         return $res;
     }
+
+    public function obtener_municipios_x_estado($id_estado){
+        $qry = "SELECT id, nombre FROM municipios WHERE id_estado = {$id_estado}";
+        $res = $this->consulta($qry);
+        return $res;
+    }
+
+    public function obtener_estatus()
+    {
+        //1 => El prospecto se registro en nuestra base de datos
+        //2 => Se envio un mensaje por whatsapp
+        //3 => Se envio un correo
+        //4 => seguimiento
+        //5 => cliente
+        //6 => Eliminado
+        $res = array(
+            "id" => array(1, 2, 3, 4, 5, 6),
+            "estatus" => array(
+                "Inicio registro",
+                "Se envio un mensaje por whatsapp",
+                "Se envio un correo",
+                "En seguimiento",
+                "Es cliente",
+                "Eliminado"
+            )
+        );
+        return $res;
+    }
+
+    public function obtener_etiquetas()
+    {
+        $res = array(
+            "id" => array(1, 2, 3, 4, 5, 6),
+            "etiqueta" => array(
+                "En revisión",
+                "No esta interesado",
+                "Contactar luego",
+                "Muy interesado(a)",
+                "Solo información",
+                "No disponible"
+            )
+        );
+        return $res;
+    }
 }
