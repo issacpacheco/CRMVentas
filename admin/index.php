@@ -22,7 +22,7 @@ include("class/allClass.php");
     <!--Font awesome-->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.0/css/all.css">
     <link rel="stylesheet" href="plugins/dropzone-5.7.0/dist/dropzone.css">
-    <!-- <link rel="stylesheet" href="plugins/dragable/"> -->
+    <link rel="stylesheet" href="plugins/select2/select2.min.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -113,6 +113,10 @@ include("class/allClass.php");
     <!--Sweet Alert-->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!--Select2-->
+    <script src="plugins/select2/select2.min.js"></script>
+    <script src="plugins/select2/select.js"></script>
+
     <!--jQuery Validate-->
     <script src="js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="js/localization/messages_es.min.js" type="text/javascript"></script>
@@ -121,6 +125,7 @@ include("class/allClass.php");
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/funciones.js"></script>
+    <script src="js/funciones-puntoventa.js"></script>
 
 </body>
 
