@@ -69,27 +69,23 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                         <div class="text-center justify-content-center d-flex flex-row bd-highlight mb-3">
 
                             <div class="p-1 bd-highlight text-center">
-                                <button class="btn btn-outline-secondary rounded-circle p-importante" onclick="ModalDraggable('nota')"><i class="fal fa-pencil"></i></button>
+                                <button class="btn btn-outline-secondary rounded-circle p-importante" onClick="ModalDraggable('nota')"><i class="fal fa-pencil"></i></button>
                                 <p class="f-12">Nota</p>
                             </div>
                             <div class="p-1 bd-highlight text-center">
-                                <button class="btn btn-outline-primary rounded-circle p-importante" onclick="ModalDraggable('correo')"><i class="fal fa-envelope"></i></button>
+                                <button class="btn btn-outline-primary rounded-circle p-importante" onClick="ModalDraggable('correo')"><i class="fal fa-envelope"></i></button>
                                 <p class="f-12">Correo</p>
                             </div>
                             <div class="p-1 bd-highlight text-center">
-                                <button class="btn btn-outline-warning rounded-circle p-importante" onclick="ModalDraggable('llamada')"><i class="fal fa-phone-alt"></i></button>
+                                <button class="btn btn-outline-warning rounded-circle p-importante" onClick="ModalDraggable('llamada')"><i class="fal fa-phone-alt"></i></button>
                                 <p class="f-12">Llamada</p>
                             </div>
                             <div class="p-1 bd-highlight text-center">
-                                <button class="btn btn-outline-danger rounded-circle p-importante" onclick="ModalDraggable('tarea')"><i class="fal fa-tasks"></i></button>
+                                <button class="btn btn-outline-danger rounded-circle p-importante" onClick="ModalDraggable('tarea')"><i class="fal fa-tasks"></i></button>
                                 <p class="f-12">Tarea</p>
                             </div>
-                            <!-- <div class="p-1 bd-highlight text-center">
-								<button class="btn btn-outline-info rounded-circle p-importante"><i class="fal fa-calendar"></i></button>
-								<p class="f-12">Reunión</p>
-							</div> -->
                             <div class="p-1 bd-highlight text-center">
-                                <button class="btn btn-outline-success rounded-circle p-importante" onclick="ModalDraggable('whatsapp')"><i class="fab fa-whatsapp"></i></button>
+                                <button class="btn btn-outline-success rounded-circle p-importante" onClick="ModalDraggable('whatsapp')"><i class="fab fa-whatsapp"></i></button>
                                 <p class="f-12">Whatsapp</p>
                             </div>
                         </div>
@@ -266,20 +262,9 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="d-grid gap">
-                                                    <button type="button" class="btn btn-warning btn-lg btn-block" id="boton_borrador" onClick="Confirmar_mover_aspirante();">Pasar a aspirante <i class="fal fa-save"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
                                             <div class="col-sm-6">
                                                 <input type="hidden" name="modulo" id="modulo" value="<?php echo $modulo; ?>">
-                                                <input type="hidden" name="opcion" value="<?php echo $_POST['opcion']; ?>">
+                                                <input type="hidden" name="opcion" value="<?php echo $opcion ?>">
                                                 <?php
                                                 if ($_POST['opcion'] == 'editar') {
                                                     echo '
@@ -306,7 +291,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="d-grid gap">
-                                                    <a href="javascript:void(0);" class="btn btn-info btn-lg btn-block" onClick="Vista('<?php echo $modulo; ?>','catalogo')">Cancelar <i class="fas fa-times"></i></a>
+                                                    <a href="javascript:void(0);" class="btn btn-info btn-lg btn-block" onClick="Vista('<?php echo $menu; ?>','<?php echo $modulo; ?>','catalogo')">Cancelar <i class="fas fa-times"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -315,7 +300,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                             </div>
                         </form>
                     </div>
-                    <div class="col-sm-8 bg-light" id="miDiv">
+                    <!-- <div class="col-sm-8 bg-light" id="miDiv">
                         <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Descripción</button>
@@ -331,34 +316,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                         <h3>Aspectos destacados de los datos</h3>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <?php
-                                            if ($prospecto['id_campania'][0] == 0 || $prospecto['id_campania'] == NULL || $prospecto['id_campania'] == "") {
-                                                echo '<h3>SIN CAMPAÑA PUBLICITARIA</h3>';
-                                            } else {
-                                                $id_plataforma = $campania_nombre['facebook_id'][0] != '' ? $campania_nombre['facebook_id'][0] : $campania_nombre['google_id'][0];
-                                                $plataforma = $campania_nombre['plataforma'][0] == 1 ? "Meta Busssines" : "Google ADS";
-                                                $fotos = $modclass->obtener_fotos_eventos('../../../sistema/archivos/campania/' . $prospecto['id_campania'][0]);
-                                                if ($fotos == "no existe") {
-                                                    $cont = 0;
-                                                } else {
-                                                    $cont = count($fotos['archivo']);
-                                                }
-                                                for ($c = 0; $c < $cont; $c++) {
-                                                    echo '<div class="card">
-													<img class="card-img-top" src="img/avatar-1.png" alt="">
-													<div class="card-body">
-														<h4 class="card-title">Campaña: ' . $campania_nombre['nombre'][0] . '</h4>
-														<h5 class="card-title">Plataforma: ' . $plataforma . '</h5>
-														<p class="card-text">ID Plataforma: ' . $id_plataforma . '</p>
-													</div>
-												</div>';
-                                                }
-                                            }
-                                            ?>
-
-                                        </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-12">
                                             <div class="col-sm-12 row mb-3">
                                                 <div class="col-sm-4">
                                                     <h4 class="text-center fw-bold">Fecha de creación</h4>
@@ -417,7 +375,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                         <?php echo $contenido; ?>
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <p><?php echo $fn->fechaMexicana($ultimas_actividades['fecha_registro_actividad'][$i]) . ' a la(s) ' . $ultimas_actividades['hora_registro_actividad'][$i] ?></p>
+                                                        <p><?php echo $funciones->fechaMexicana($ultimas_actividades['fecha_registro_actividad'][$i]) . ' a la(s) ' . $ultimas_actividades['hora_registro_actividad'][$i] ?></p>
                                                     </div>
                                                 </div>
                                                 <hr />
@@ -438,12 +396,10 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
                                                         <div class="well">
-                                                            <p><strong>Fecha: <?php echo FechaFormato($comentarios['fch_registro'][$i]) . ' ' . $comentarios['hra_registro'][$i]; ?></strong></p>
+                                                            <p><strong>Fecha: <?php echo $funciones->FechaFormato($comentarios['fch_registro'][$i]) . ' ' . $comentarios['hra_registro'][$i]; ?></strong></p>
                                                             <p><?php echo $comentarios['comentario'][$i]; ?></p>
                                                             <br>
                                                             <p class="text-info"><strong>Asesor: </strong><?php echo $comentarios['asesor'][$i]; ?></p>
-                                                            <!-- <a href="prospectos?eliminar_comentario=<?php //echo md5($comentarios['id']);
-                                                                                                            ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Eliminar</a> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -461,7 +417,6 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                             <li class="nav-li"><a id="p_correo">Correos</a></li>
                                             <li class="nav-li"><a id="p_llamada">Llamadas</a></li>
                                             <li class="nav-li"><a id="p_tarea">Tareas</a></li>
-                                            <!-- <li class="nav-li"><a id="p_reunion">Reuniones</a></li> -->
                                         </ul>
                                         <hr>
                                         <div id="line" class="mt-n2"></div>
@@ -474,7 +429,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                     </div>
                                     <div class="col-sm-12 row bg-white card-body mt-n3">
                                         <?php for ($i = 0; $i < $cultimas_actividades; $i++) {
-                                            $consulta3 = mysqli_query($conexion, "SELECT * FROM si_usuarios WHERE id = '{$ultimas_actividades['asesor'][$i]}'");
+                                            $consulta3 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE id = '{$ultimas_actividades['asesor'][$i]}'");
                                             $prospecto3 = mysqli_fetch_array($consulta3);
                                             switch ($ultimas_actividades['origen'][$i]) {
                                                 case 'si_' . $modulo . '_notas':
@@ -504,7 +459,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                     <?php echo $contenido; ?>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <p><?php echo $fn->fechaMexicana($ultimas_actividades['fecha_registro_actividad'][$i]) . ' a la(s) ' . $ultimas_actividades['hora_registro_actividad'][$i] ?></p>
+                                                    <p><?php echo $funciones->fechaMexicana($ultimas_actividades['fecha_registro_actividad'][$i]) . ' a la(s) ' . $ultimas_actividades['hora_registro_actividad'][$i] ?></p>
                                                 </div>
                                             </div>
                                             <hr />
@@ -514,15 +469,15 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
 
                                 <div class="d-none" id="d_nota">
                                     <div class="d-flex justify-content-end mb-3">
-                                        <button class="btn btn-outline-secondary" onclick="ModalDraggable('nota')"><i class="fal fa-plus"></i> Crear nota</button>
+                                        <button class="btn btn-outline-secondary" onClick="ModalDraggable('nota')"><i class="fal fa-plus"></i> Crear nota</button>
                                     </div>
                                     <div id="contenedor-nota" class="row card text-black"></div>
-                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM si_licenciaturas_prospectos_notas WHERE MD5(id_prospecto) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
+                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM prospectos WHERE MD5(id) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
                                     while ($prospecto1 = mysqli_fetch_array($consulta1)) { ?>
-                                        <h5><?php echo $fn->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
+                                        <h5><?php echo $funciones->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
                                         <div class="row card text-black">
                                             <div class="col-sm-12 row bg-white card-body">
-                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM si_licenciaturas_prospectos_notas WHERE MD5(id_prospecto) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
+                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM prospectos WHERE MD5(id) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
                                                 while ($prospecto2 = mysqli_fetch_array($consulta2)) {
                                                     $consulta3 = mysqli_query($conexion, "SELECT * FROM si_usuarios WHERE id = '{$prospecto2['id_usuario']}'");
                                                     $prospecto3 = mysqli_fetch_array($consulta3);
@@ -533,7 +488,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                             <?php echo $prospecto2['nota'] ?>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <p><?php echo $fn->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
+                                                            <p><?php echo $funciones->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
                                                         </div>
 
                                                     </div>
@@ -546,15 +501,15 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
 
                                 <div class="d-none" id="d_correo">
                                     <div class="d-flex justify-content-end mb-3">
-                                        <button class="btn btn-outline-secondary" onclick="ModalDraggable('correo')"><i class="fal fa-plus"></i> Nuevo correo</button>
+                                        <button class="btn btn-outline-secondary" onClick="ModalDraggable('correo')"><i class="fal fa-plus"></i> Nuevo correo</button>
                                     </div>
                                     <div id="contenedor-correo" class="row card text-black"></div>
-                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM si_licenciaturas_prospectos_correos WHERE MD5(id_prospecto) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
+                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM prospectos WHERE MD5(id) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
                                     while ($prospecto1 = mysqli_fetch_array($consulta1)) { ?>
-                                        <h5><?php echo $fn->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
+                                        <h5><?php echo $funciones->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
                                         <div class="row card text-black">
                                             <div class="col-sm-12 row bg-white card-body">
-                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM si_licenciaturas_prospectos_correos WHERE MD5(id_prospecto) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
+                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM prospectos WHERE MD5(id) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
                                                 while ($prospecto2 = mysqli_fetch_array($consulta2)) {
                                                     $consulta3 = mysqli_query($conexion, "SELECT * FROM si_usuarios WHERE id = '{$prospecto2['id_usuario']}'");
                                                     $prospecto3 = mysqli_fetch_array($consulta3);
@@ -565,7 +520,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                             <?php echo $prospecto2['contenido'] ?>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <p><?php echo $fn->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
+                                                            <p><?php echo $funciones->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
                                                         </div>
 
                                                     </div>
@@ -578,15 +533,15 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
 
                                 <div class="d-none" id="d_llamada">
                                     <div class="d-flex justify-content-end mb-3">
-                                        <button class="btn btn-outline-secondary" onclick="ModalDraggable('llamada')"><i class="fal fa-plus"></i> Registrar llamada</button>
+                                        <button class="btn btn-outline-secondary" onClick="ModalDraggable('llamada')"><i class="fal fa-plus"></i> Registrar llamada</button>
                                     </div>
                                     <div id="contenedor-llamada" class="row card text-black"></div>
-                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM si_licenciaturas_prospectos_llamadas WHERE MD5(id_prospecto) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
+                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM prospectos WHERE MD5(id) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
                                     while ($prospecto1 = mysqli_fetch_array($consulta1)) { ?>
-                                        <h5><?php echo $fn->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
+                                        <h5><?php echo $funciones->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
                                         <div class="row card text-black">
                                             <div class="col-sm-12 row bg-white card-body">
-                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM si_licenciaturas_prospectos_llamadas WHERE MD5(id_prospecto) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
+                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM prospectos WHERE MD5(id) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
                                                 while ($prospecto2 = mysqli_fetch_array($consulta2)) {
                                                     $consulta3 = mysqli_query($conexion, "SELECT * FROM si_usuarios WHERE id = '{$prospecto2['id_usuario']}'");
                                                     $prospecto3 = mysqli_fetch_array($consulta3);
@@ -597,7 +552,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                             <?php echo $prospecto2['contenido'] ?>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <p><?php echo $fn->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
+                                                            <p><?php echo $funciones->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
                                                         </div>
                                                         <hr>
                                                         <div class="col-sm-12 row">
@@ -640,15 +595,15 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
 
                                 <div class="d-none" id="d_tarea">
                                     <div class="d-flex justify-content-end mb-3">
-                                        <button class="btn btn-outline-secondary" onclick="ModalDraggable('tarea')"><i class="fal fa-plus"></i> Crear tarea</button>
+                                        <button class="btn btn-outline-secondary" onClick="ModalDraggable('tarea')"><i class="fal fa-plus"></i> Crear tarea</button>
                                     </div>
                                     <div id="contenedor-tarea" class="row card text-black"></div>
-                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM si_licenciaturas_prospectos_tareas WHERE MD5(id_prospecto) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
+                                    <?php $consulta1 = mysqli_query($conexion, "SELECT fecha_registro FROM prospectos WHERE MD5(id) = '{$token}' GROUP BY fecha_registro ORDER BY fecha_registro DESC");
                                     while ($prospecto1 = mysqli_fetch_array($consulta1)) { ?>
-                                        <h5><?php echo $fn->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
+                                        <h5><?php echo $funciones->fechaMexicana($prospecto1['fecha_registro']) ?></h5>
                                         <div class="row card text-black">
                                             <div class="col-sm-12 row bg-white card-body">
-                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM si_licenciaturas_prospectos_tareas WHERE MD5(id_prospecto) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
+                                                <?php $consulta2 = mysqli_query($conexion, "SELECT * FROM prospectos WHERE MD5(id) = '{$token}' AND fecha_registro = '{$prospecto1['fecha_registro']}' ORDER BY id DESC");
                                                 while ($prospecto2 = mysqli_fetch_array($consulta2)) {
                                                     $consulta3 = mysqli_query($conexion, "SELECT * FROM si_usuarios WHERE id = '{$prospecto2['id_usuario_asignado']}'");
                                                     $prospecto3 = mysqli_fetch_array($consulta3);
@@ -659,7 +614,7 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                                             <?php echo $prospecto2['contenido'] ?>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <p><?php echo $fn->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
+                                                            <p><?php echo $funciones->fechaMexicana($prospecto2['fecha_registro']); ?> a la(s) <?php echo $prospecto2['hora_registro'] ?></p>
                                                         </div>
                                                         <div class="col-sm-12 mt-1">
                                                             <h4><?php echo $prospecto2['titulo_tarea'] ?></h4>
@@ -725,32 +680,736 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
                                         </div>
                                     <?php } ?>
                                 </div>
-
-                                <!-- <div class="d-none" id="d_reunion">
-									<div class="d-flex justify-content-end mb-3">
-										<button class="btn btn-outline-secondary"><i class="fal fa-plus"></i> Registrar reunión</button>
-									</div>
-									<div class="row card text-black">
-										<div class="col-sm-12 row bg-white card-body">
-											<div class="col-sm-12 mb-3">
-												<p>Nota por <span class="text-success fw-bold">asesor</span></p>
-												<p>DESCRIPCION DE LA NOTA</p>
-											</div>
-											<div class="col-sm-12 mb-3">
-												<p>Nota por <span class="text-success fw-bold">asesor</span></p>
-												<p>DESCRIPCION DE LA NOTA</p>
-											</div>
-										</div>
-									</div>
-								</div> -->
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- <div class="modal fade" id="moda_nota" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg p-0 mb-2 bg-white rounded">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="staticBackdropLabel">Nota</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fw-bold text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="editor_nota" contenteditable="true" onClick="comenzarAEscribir()">
+                    <p>Empieza a escribir para dejar una nota</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onClick="GuardarModal('nota');">Guardar <i class="fal fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="moda_correo" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg p-0 mb-2 bg-white rounded">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="staticBackdropLabel">Correo</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fw-bold text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <label>Asunto</label>
+                        <input type="text" name="asunto" id="asunto" class="form-control">
+                    </div>
+                </div>
+                <h5>Cuerpo del correo</h5>
+                <hr>
+                <div id="editor_correo" class="mb-3" contenteditable="true" onClick="comenzarAEscribir()">
+                    <p>Empieza a escribir tu correo</p>
+                </div>
+                <hr>
+                <div class="row">
+                    <h5>Datos de correo institucional (opcional)</h5>
+                    <div class="col-sm-4">
+                        <label>Correo saliente</label>
+                        <input type="text" name="correo_usuario" id="correo_usuario" value="" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Contraseña del correo</label>
+                        <input type="password" name="pass_correo_usuario" id="pass_correo_usuario" class="form-control mb-1">
+                        <input type="checkbox" name="ver_pass" id="ver_pass" onClick="VerContrasena();"> Ver contraseña
+                    </div>
+                    <div class="alert alert-warning h5" role="alert">
+                        Estos datos son opcionales, ya que el correo puede ser enviado por noreply@cert.edu.mx, pero si quieres llevar tu propio registro de correos y verlos en tu bandeja, puedes capturar tu correo institucional y tu contraseña, es importante mencionar que tu contraseña no es guardada en ninguna base de datos es por ello que cada que envíes un correo con tu usuario tu contraseña será solicitada a cada momento.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onClick="GuardarModal('correo');">Enviar <i class="fal fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="moda_llamada" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg p-0 mb-2 bg-white rounded">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="staticBackdropLabel">Registrar llamada</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fw-bold text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-1">
+                    <div class="col-sm-4">
+                        <label>Contactado</label>
+                        <select name="id_asesor_llamada" id="id_asesor_llamada" class="form-select">
+                            <option value="0" selected>Selecciona un asesor</option>
+                            <?php for ($i = 0; $i < $cusuarios; $i++) {
+                                if ($_SESSION['id'] == $usuarios['id'][$i]) {
+                                    echo '<option value="' . $usuarios['id'][$i] . '" selected>' . $usuarios['nombre'][$i] . ' ' . $usuarios['paterno'][$i] . '</option>';
+                                } else {
+                                    echo '<option value="' . $usuarios['id'][$i] . '" >' . $usuarios['nombre'][$i] . ' ' . $usuarios['paterno'][$i] . '</option>';
+                                }
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Resultado de la llamada</label>
+                        <select name="resultado_llamada" id="resultado_llamada" class="form-select">
+                            <option value="0" selected>Selecciona un resultado</option>
+                            <?php for ($i = 0; $i < $cbandera_llamada; $i++) {
+                                echo '<option value="' . $bandera_llamada['id'][$i] . '" >' . $bandera_llamada['bandera'][$i] . '</option>';
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Dirección</label>
+                        <select name="direccion_llamada" id="direccion_llamada" class="form-select">
+                            <option value="0" selected>Seleccionar dirección de la llamada</option>
+                            <option value="1">Entrante</option>
+                            <option value="2">Saliente</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4">
+                        <label>Fecha</label>
+                        <input type="date" name="fecha_registro_llamada" id="fecha_registro_llamada" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Hora</label>
+                        <input type="time" name="hora_registro_llamada" id="hora_registro_llamada" class="form-control">
+                    </div>
+                </div>
+                <hr>
+                <div id="editor_llamada" class="mb-3" contenteditable="true" onClick="comenzarAEscribir()">
+                    <p>Describe la llamada</p>
+                </div>
+                <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onClick="GuardarModal('llamada');">Registrar <i class="fal fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="moda_tarea" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg p-0 mb-2 bg-white rounded">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="staticBackdropLabel">Tarea</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fw-bold text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-sm-12">
+                        <label>Ingresa tu tarea</label>
+                        <input type="text" name="titulo_tarea" id="titulo_tarea" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4">
+                        <label>Fecha de vencimiento</label>
+                        <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Hora</label>
+                        <input type="time" name="hora_vencimiento" id="hora_vencimiento" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Notificarme recordatorio</label>
+                        <select name="tipo_notificacion" id="tipo_notificacion" class="form-select">
+                            <option value="0" selected>Sin recordatorio</option>
+                            <option value="1">A la hora del vencimiento de la tarea</option>
+                            <option value="2">30 minutos antes</option>
+                            <option value="3">1 hora antes</option>
+                            <option value="4">1 día antes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <label>Tipo</label>
+                        <select name="tipo_tarea" id="tipo_tarea" class="form-select">
+                            <option value="0">Selecciona un opción</option>
+                            <option value="1">Llamada</option>
+                            <option value="2">Correo</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Prioridad</label>
+                        <select name="prioridad" id="prioridad" class="form-select">
+                            <option value="0" selected>Ninguna</option>
+                            <option value="1" class="text-success">&#11044; Baja</option>
+                            <option value="2" class="text-warning">&#11044; Media</option>
+                            <option value="3" class="text-danger">&#11044; Alta</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>asignado a</label>
+                        <select name="id_usuario_asignado" id="id_usuario_asignado" class="form-select">
+                            <option value="0" selected>Selecciona un asesor</option>
+                            <?php for ($i = 0; $i < $cusuarios; $i++) {
+                                if ($_SESSION['id'] == $usuarios['id'][$i]) {
+                                    echo '<option value="' . $usuarios['id'][$i] . '" selected>' . $usuarios['nombre'][$i] . ' ' . $usuarios['paterno'][$i] . '</option>';
+                                } else {
+                                    echo '<option value="' . $usuarios['id'][$i] . '" >' . $usuarios['nombre'][$i] . ' ' . $usuarios['paterno'][$i] . '</option>';
+                                }
+                            } ?>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div id="editor_tarea" class="mb-3" contenteditable="true" onClick="comenzarAEscribir()">
+                    <p>Notas...</p>
+                </div>
+                <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onClick="GuardarModal('tarea');">Registrar <i class="fal fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="moda_whatsapp" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg p-0 mb-2 bg-white rounded">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="staticBackdropLabel">Whatsapp</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fw-bold text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-sm-12">
+                        <label>Escribe un mensaje</label>
+                        <input type="text" name="mensaje_whatsapp" id="mensaje_whatsapp" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Teléfono</label>
+                        <input type="text" name="numero_whatsapp" id="numero_whatsapp" class="form-control" value="<?php echo $d['telefono'][0] ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onClick="EnviarWhatsapp();">Enviar <i class="fal fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+<!-- <script>
+    $(document).ready(function() {
+        var $activeWidth, $defaultMarginLeft, $defaultPaddingLeft, $firstChild, $line, $navListItem;
+
+        $line = $('#line');
+
+        $navListItem = $('.nav-li');
+
+        $activeWidth = $('.active-nav').width();
+
+        $firstChild = $('.nav-li:first-child');
+
+        $defaultMarginLeft = parseInt($('.nav-li:first-child').next().css('marginLeft').replace(/\D/g, ''));
+
+        $defaultPaddingLeft = parseInt($('#nav-container > ul').css('padding-left').replace(/\D/g, ''));
+
+        $line.width($activeWidth + 'px');
+
+        $line.css('marginLeft', $defaultPaddingLeft + 'px');
+
+        $navListItem.click(function() {
+            var $activeNav, $currentIndex, $currentOffset, $currentWidth, $initWidth, $marginLeftToSet, $this;
+            $this = $(this);
+            $activeNav = $('.active-nav');
+            $currentWidth = $activeNav.width();
+            $currentOffset = $activeNav.position().left;
+            $currentIndex = $activeNav.index();
+            $activeNav.removeClass('active-nav');
+            $this.addClass('active-nav');
+            if ($this.is($activeNav)) {
+                return 0;
+            } else {
+                if ($this.index() > $currentIndex) {
+                    if ($activeNav.is($firstChild)) {
+                        $initWidth = $defaultMarginLeft + ($this.width() - 50) + ($this.position().left - 570) - $defaultPaddingLeft;
+                    } else {
+                        $initWidth = ($this.position().left - 570) + $this.width() - $currentOffset;
+                    }
+                    $marginLeftToSet = ($this.position().left - 570) + $defaultMarginLeft + 'px';
+                    $line.width($initWidth + 'px');
+                    return setTimeout(function() {
+                        $line.css('marginLeft', $marginLeftToSet);
+                        return $line.width($this.width() + 'px');
+                    }, 175);
+                } else {
+                    if ($this.is($firstChild)) {
+                        $initWidth = $currentOffset - $defaultPaddingLeft + $defaultMarginLeft + $currentWidth;
+                        $marginLeftToSet = ($this.position().left - 570);
+                    } else {
+                        $initWidth = $currentWidth + $currentOffset - ($this.position().left - 570);
+                        $marginLeftToSet = ($this.position().left - 570) + $defaultMarginLeft;
+                    }
+                    $line.css('marginLeft', $marginLeftToSet);
+                    $line.width($initWidth + 'px');
+                    return setTimeout(function() {
+                        return $line.width($this.width() + 'px');
+                    }, 175);
+                }
+            }
+        });
+
+        $("#p_actividad").on("click", function() {
+            $("#d_actividad").removeClass("d-none");
+            $("#d_nota").addClass("d-none");
+            $("#d_correo").addClass("d-none");
+            $("#d_llamada").addClass("d-none");
+            $("#d_tarea").addClass("d-none");
+            // $("#d_reunion").addClass("d-none");
+
+            $("#d_actividad").addClass("d-block");
+        });
+
+        $("#p_nota").on("click", function() {
+            $("#d_actividad").addClass("d-none");
+            $("#d_nota").removeClass("d-none");
+            $("#d_correo").addClass("d-none");
+            $("#d_llamada").addClass("d-none");
+            $("#d_tarea").addClass("d-none");
+            // $("#d_reunion").addClass("d-none");
+
+            $("#d_nota").addClass("d-block");
+        });
+
+        $("#p_correo").on("click", function() {
+            $("#d_actividad").addClass("d-none");
+            $("#d_nota").addClass("d-none");
+            $("#d_correo").removeClass("d-none");
+            $("#d_llamada").addClass("d-none");
+            $("#d_tarea").addClass("d-none");
+            // $("#d_reunion").addClass("d-none");
+
+            $("#d_correo").addClass("d-block");
+        });
+
+        $("#p_llamada").on("click", function() {
+            $("#d_actividad").addClass("d-none");
+            $("#d_nota").addClass("d-none");
+            $("#d_correo").addClass("d-none");
+            $("#d_llamada").removeClass("d-none");
+            $("#d_tarea").addClass("d-none");
+            // $("#d_reunion").addClass("d-none");
+
+            $("#d_llamada").addClass("d-block");
+        });
+
+        $("#p_tarea").on("click", function() {
+            $("#d_actividad").addClass("d-none");
+            $("#d_nota").addClass("d-none");
+            $("#d_correo").addClass("d-none");
+            $("#d_llamada").addClass("d-none");
+            $("#d_tarea").removeClass("d-none");
+            // $("#d_reunion").addClass("d-none");
+
+            $("#d_tarea").addClass("d-block");
+        });
+
+        $("#t2").on("click", function() {
+            $("#p_actividad").click();
+            $("#d_actividad").removeClass("d-none");
+        });
+
+        $("#t1").on("click", function() {
+            $("#d_actividad").addClass("d-none");
+            $("#d_nota").addClass("d-none");
+            $("#d_correo").addClass("d-none");
+            $("#d_llamada").addClass("d-none");
+            $("#d_tarea").addClass("d-none");
+            // $("#d_reunion").addClass("d-none");
+        });
+
+
+    });
+
+    function ModalDraggable(opcion) {
+        switch (opcion) {
+            case 'nota':
+                $('#moda_nota').modal('show');
+                $("#moda_nota .modal-header").css("cursor", "grab");
+                $("#moda_nota").draggable({
+                    handle: ".modal-header",
+                    cursor: "move"
+                });
+                crearEditor(opcion);
+                break;
+            case 'correo':
+                $('#moda_correo').modal('show');
+                $("#moda_correo .modal-header").css("cursor", "grab");
+                $("#moda_correo").draggable({
+                    handle: ".modal-header",
+                    cursor: "move"
+                });
+                crearEditor(opcion);
+                break;
+            case 'llamada':
+                $('#moda_llamada').modal('show');
+                $("#moda_llamada .modal-header").css("cursor", "grab");
+                $("#moda_llamada").draggable({
+                    handle: ".modal-header",
+                    cursor: "move"
+                });
+                crearEditor(opcion);
+                break;
+            case 'tarea':
+                $('#moda_tarea').modal('show');
+                $("#moda_tarea .modal-header").css("cursor", "grab");
+                $("#moda_tarea").draggable({
+                    handle: ".modal-header",
+                    cursor: "move"
+                });
+                crearEditor(opcion);
+                break;
+            case 'whatsapp':
+                $('#moda_whatsapp').modal('show');
+                $("#moda_whatsapp .modal-header").css("cursor", "grab");
+                $("#moda_whatsapp").draggable({
+                    handle: ".modal-header",
+                    cursor: "move"
+                });
+                // crearEditor(opcion);
+                break;
+            default:
+                break;
+        }
+    }
+
+    var quill = null; // Inicializamos la variable del editor como nula
+    var editorCreado = false; // Variable para rastrear si ya se creó el editor
+    var editorNota = false;
+    var editorCorreo = false;
+    var editorLlamada = false;
+    var editorTarea = false;
+    // var editorReunion = false;
+
+    function crearEditor(opcion) {
+        switch (opcion) {
+            case 'nota':
+
+                if (!editorNota) {
+                    quill = new Quill('#editor_' + opcion, {
+                        theme: 'snow',
+                        // otras opciones...
+                    });
+
+                    quill.on('selection-change', function(range, oldRange, source) {
+                        if (range === null && oldRange === null && source === 'user') {
+                            // Si la selección es nula y el cambio provino del usuario, asumimos que el editor está inactivo
+                            console.log('El editor está inactivo.');
+                        } else {
+                            // En otros casos, asumimos que el editor está activo
+                            console.log('El editor está activo.');
+                        }
+                    });
+                    editorNota = true;
+                } else {
+                    console.log('Ya existe un editor activo.');
+                }
+                break;
+            case 'correo':
+
+                if (!editorCorreo) {
+                    quill = new Quill('#editor_' + opcion, {
+                        theme: 'snow',
+                        // otras opciones...
+                    });
+
+                    quill.on('selection-change', function(range, oldRange, source) {
+                        if (range === null && oldRange === null && source === 'user') {
+                            // Si la selección es nula y el cambio provino del usuario, asumimos que el editor está inactivo
+                            console.log('El editor está inactivo.');
+                        } else {
+                            // En otros casos, asumimos que el editor está activo
+                            console.log('El editor está activo.');
+                        }
+                    });
+                    editorCorreo = true;
+                } else {
+                    console.log('Ya existe un editor activo.');
+                }
+                break;
+            case 'llamada':
+                if (!editorLlamada) {
+                    quill = new Quill('#editor_' + opcion, {
+                        theme: 'snow',
+                        // otras opciones...
+                    });
+
+                    quill.on('selection-change', function(range, oldRange, source) {
+                        if (range === null && oldRange === null && source === 'user') {
+                            // Si la selección es nula y el cambio provino del usuario, asumimos que el editor está inactivo
+                            console.log('El editor está inactivo.');
+                        } else {
+                            // En otros casos, asumimos que el editor está activo
+                            console.log('El editor está activo.');
+                        }
+                    });
+                    editorLlamada = true;
+                } else {
+                    console.log('Ya existe un editor activo.');
+                }
+                break;
+            case 'tarea':
+
+                if (!editorTarea) {
+                    quill = new Quill('#editor_' + opcion, {
+                        theme: 'snow',
+                        // otras opciones...
+                    });
+
+                    quill.on('selection-change', function(range, oldRange, source) {
+                        if (range === null && oldRange === null && source === 'user') {
+                            // Si la selección es nula y el cambio provino del usuario, asumimos que el editor está inactivo
+                            console.log('El editor está inactivo.');
+                        } else {
+                            // En otros casos, asumimos que el editor está activo
+                            console.log('El editor está activo.');
+                        }
+                    });
+                    editorTarea = true;
+                } else {
+                    console.log('Ya existe un editor activo.');
+                }
+                break;
+                // case 'reunion':
+                // 	if (!editorReunion) {
+                // 		quill = new Quill('#editor_' + opcion, {
+                // 			theme: 'snow',
+                // 			// otras opciones...
+                // 		});
+
+                // 		quill.on('selection-change', function(range, oldRange, source) {
+                // 			if (range === null && oldRange === null && source === 'user') {
+                // 				// Si la selección es nula y el cambio provino del usuario, asumimos que el editor está inactivo
+                // 				console.log('El editor está inactivo.');
+                // 			} else {
+                // 				// En otros casos, asumimos que el editor está activo
+                // 				console.log('El editor está activo.');
+                // 			}
+                // 		});
+                // 		editorReunion = true;
+                // 	} else {
+                // 		console.log('Ya existe un editor activo.');
+                // 	}
+                // 	break;
+        }
+    }
+
+    function comenzarAEscribir() {
+        var texto = $(".ql-editor").text();
+        if (texto === "Empieza a escribir para dejar una nota") {
+            $(".ql-editor").empty();
+        }
+        console.log(texto);
+    }
+
+    function crearDIV(asesor, descripcion, opcion) {
+        // Crear elementos HTML
+        var contenedorNota = document.getElementById('contenedor-' + opcion);
+
+        var titulo = document.createElement('h5');
+        titulo.className = 'titulo_momento';
+        titulo.textContent = 'Creado hace un momento';
+
+        var nuevaNota = document.createElement('div');
+        nuevaNota.className = 'col-sm-12 row bg-white card-body';
+
+        var columnaNota = document.createElement('div');
+        columnaNota.className = 'col-sm-12 mb-3';
+
+        var parrafoAsesor = document.createElement('p');
+        parrafoAsesor.textContent = 'Nota por ';
+        var spanAsesor = document.createElement('span');
+        spanAsesor.className = 'text-success fw-bold';
+        spanAsesor.textContent = asesor;
+        parrafoAsesor.appendChild(spanAsesor);
+
+        var parrafoDescripcion = document.createElement('p');
+        parrafoDescripcion.innerHTML = descripcion;
+
+        // Agregar elementos al contenedor
+        columnaNota.appendChild(titulo);
+        columnaNota.appendChild(parrafoAsesor);
+        columnaNota.appendChild(parrafoDescripcion);
+        nuevaNota.appendChild(columnaNota);
+        contenedorNota.appendChild(nuevaNota);
+    }
+
+
+    function GuardarModal(opcion) {
+        switch (opcion) {
+            case 'nota':
+                var nota = document.getElementById('editor_' + opcion).children[0].innerHTML;
+                var abc = '<?php echo $_POST['opcion']; ?>';
+                var token = '<?php echo $token; ?>';
+                break;
+            case 'correo':
+                var nota = document.getElementById('editor_' + opcion).children[0].innerHTML;
+                var abc = '<?php echo $_POST['opcion']; ?>';
+                var token = '<?php echo $token; ?>';
+                var correo_usuario = document.getElementById('correo_usuario').value;
+                var pass_correo_usuario = document.getElementById('pass_correo_usuario').value;
+                var asunto = document.getElementById('asunto').value;
+                break;
+            case 'llamada':
+                var nota = document.getElementById('editor_' + opcion).children[0].innerHTML;
+                var abc = '<?php echo $_POST['opcion']; ?>';
+                var token = '<?php echo $token; ?>';
+                var resultado_llamada = document.getElementById('resultado_llamada').value;
+                var direccion_llamada = document.getElementById('direccion_llamada').value;
+                var fecha_registro_llamada = document.getElementById('fecha_registro_llamada').value;
+                var hora_registro_llamada = document.getElementById('hora_registro_llamada').value;
+                var id_asesor_llamada = document.getElementById('id_asesor_llamada').value;
+                break;
+            case 'tarea':
+                var nota = document.getElementById('editor_' + opcion).children[0].innerHTML;
+                var abc = '<?php echo $_POST['opcion']; ?>';
+                var token = '<?php echo $token; ?>';
+                var titulo_tarea = document.getElementById('titulo_tarea').value;
+                var fecha_vencimiento = document.getElementById('fecha_vencimiento').value;
+                var hora_vencimiento = document.getElementById('hora_vencimiento').value;
+                var tipo_notificacion = document.getElementById('tipo_notificacion').value;
+                var tipo_tarea = document.getElementById('tipo_tarea').value;
+                var prioridad = document.getElementById('prioridad').value;
+                var id_usuario_asignado = document.getElementById('id_usuario_asignado').value;
+                break;
+            default:
+                break;
+        }
+        $.ajax({
+            type: 'post',
+            url: 'modulos/<?php echo $_POST['modulo']; ?>/guardar',
+            cache: false,
+            data: {
+                nota: nota,
+                correo_usuario: correo_usuario,
+                pass_correo_usuario: pass_correo_usuario,
+                resultado_llamada: resultado_llamada,
+                direccion_llamada: direccion_llamada,
+                fecha_registro_llamada: fecha_registro_llamada,
+                hora_registro_llamada: hora_registro_llamada,
+                id_asesor_llamada: id_asesor_llamada,
+                titulo_tarea: titulo_tarea,
+                fecha_vencimiento: fecha_vencimiento,
+                hora_vencimiento: hora_vencimiento,
+                tipo_notificacion: tipo_notificacion,
+                tipo_tarea: tipo_tarea,
+                prioridad: prioridad,
+                id_usuario_asignado: id_usuario_asignado,
+                asunto: asunto,
+                accion: abc,
+                opcion_modal: opcion,
+                token: token
+            },
+            success: function(response) {
+                switch (response) {
+                    case "-1": {
+                        //Error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Ocurrío un error en el sistema.',
+                        });
+                        break;
+                    }
+                    case "1": {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: 'El registro se guardó correctamente.',
+                        });
+                        switch (opcion) {
+                            case 'nota':
+                                crearDIV('<?php echo $_SESSION['nombre'] . ' ' . $_SESSION['paterno'] . ' ' . $_SESSION['materno'] ?>', nota, opcion);
+                                $('#moda_' + opcion).modal('hide');
+                                break;
+                            case 'correo':
+                                crearDIV('<?php echo $_SESSION['nombre'] . ' ' . $_SESSION['paterno'] . ' ' . $_SESSION['materno'] ?>', nota, opcion);
+                                $('#moda_' + opcion).modal('hide');
+                                break;
+                            case 'llamada':
+                                crearDIV('<?php echo $_SESSION['nombre'] . ' ' . $_SESSION['paterno'] . ' ' . $_SESSION['materno'] ?>', nota, opcion);
+                                $('#moda_' + opcion).modal('hide');
+                                break;
+                            case 'tarea':
+                                crearDIV('<?php echo $_SESSION['nombre'] . ' ' . $_SESSION['paterno'] . ' ' . $_SESSION['materno'] ?>', nota, opcion);
+                                $('#moda_' + opcion).modal('hide');
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    }
+                    case "2": {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: 'El registro se actualizó correctamente.',
+                        });
+                        break;
+                    }
+                    case "3": {
+                        break;
+                    }
+                    default: {
+                        //Error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Ocurrío un error, por favor intente de nuevo.',
+                        });
+                        break;
+                    }
+                }
+            }
+        })
+    }
+</script> -->
 <script>
     $('#form_abc').validate({
         errorElement: 'span', //default input error message container
@@ -767,9 +1426,6 @@ $cetiquetas = $funciones->cuentarray($etiquetas);
         rules: {
             nombre: {
                 required: true,
-            },
-            estatus: {
-                required: true
             }
         },
 
