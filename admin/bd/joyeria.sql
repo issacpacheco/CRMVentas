@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 05-09-2024 a las 21:10:16
--- Versión del servidor: 10.4.17-MariaDB
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-09-2024 a las 03:53:02
+-- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -31,7 +31,7 @@ CREATE TABLE `almacen` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `estatus` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `almacen`
@@ -51,7 +51,7 @@ CREATE TABLE `categorias` (
   `nombre` varchar(35) NOT NULL,
   `descripcion` varchar(75) NOT NULL,
   `estatus` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -73,7 +73,7 @@ CREATE TABLE `clientes` (
   `telefono` varchar(30) NOT NULL,
   `fecha_registro` date NOT NULL,
   `idProspecto` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -81,6 +81,21 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id`, `nombre`, `correo`, `telefono`, `fecha_registro`, `idProspecto`) VALUES
 (1, 'Miguel Alcocer', 'miguel@gmail.com', '999250135', '2024-09-02', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_venta`
+--
+
+CREATE TABLE `detalle_venta` (
+  `id` int(11) NOT NULL,
+  `id_venta` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_venta` decimal(10,0) NOT NULL,
+  `total` decimal(13,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -96,7 +111,7 @@ CREATE TABLE `entradas` (
   `cantidad` int(11) NOT NULL,
   `fecha_registro` date NOT NULL,
   `hora_registro` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `entradas`
@@ -113,7 +128,8 @@ INSERT INTO `entradas` (`id`, `id_producto`, `id_almacen`, `id_usuario`, `cantid
 (8, 1, 1, 3, 50, '2024-08-23', '00:10:04'),
 (9, 1, 1, 3, 100, '2024-08-23', '00:38:04'),
 (10, 1, 1, 3, 10, '2024-08-23', '00:10:05'),
-(11, 2, 1, 3, 5, '2024-08-23', '00:10:05');
+(11, 2, 1, 3, 5, '2024-08-23', '00:10:05'),
+(12, 0, 1, 0, 0, '2024-09-06', '13:47:24');
 
 -- --------------------------------------------------------
 
@@ -125,7 +141,7 @@ CREATE TABLE `estados` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `clave_entidad` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -176,7 +192,7 @@ CREATE TABLE `municipios` (
   `clave_municipio` int(11) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Volcado de datos para la tabla `municipios`
@@ -2675,7 +2691,7 @@ CREATE TABLE `productos` (
   `precio_venta` double(11,2) NOT NULL,
   `fecha_registro` date NOT NULL,
   `hora_registro` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -2697,7 +2713,7 @@ CREATE TABLE `productos_almacen` (
   `id_almacen` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `estatus` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos_almacen`
@@ -2728,7 +2744,7 @@ CREATE TABLE `prospectos` (
   `sexo` int(11) NOT NULL,
   `id_estado` int(11) NOT NULL,
   `id_municipio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `prospectos`
@@ -2751,7 +2767,7 @@ CREATE TABLE `salidas` (
   `cantidad` int(11) NOT NULL,
   `fecha_registro` date NOT NULL,
   `hora_registro` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `salidas`
@@ -2763,7 +2779,8 @@ INSERT INTO `salidas` (`id`, `id_producto`, `id_almacen`, `id_usuario`, `cantida
 (3, 1, 1, 0, 8, '2024-08-23', '21:52:51'),
 (4, 2, 1, 0, 5, '2024-08-23', '21:52:51'),
 (5, 0, 1, 0, 11, '2024-08-24', '23:58:13'),
-(6, 0, 1, 0, 1, '2024-08-24', '23:58:13');
+(6, 0, 1, 0, 1, '2024-08-24', '23:58:13'),
+(7, 0, 1, 0, 0, '2024-09-06', '13:27:31');
 
 -- --------------------------------------------------------
 
@@ -2775,7 +2792,7 @@ CREATE TABLE `unidades_medida` (
   `id` int(11) NOT NULL,
   `abreviacion` varchar(15) NOT NULL,
   `nombre` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `unidades_medida`
@@ -2800,7 +2817,7 @@ CREATE TABLE `usuarios` (
   `id_almacen` int(11) NOT NULL,
   `password` varchar(100) NOT NULL,
   `nivel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -2810,6 +2827,21 @@ INSERT INTO `usuarios` (`id`, `usuario`, `nombre`, `paterno`, `materno`, `id_alm
 (1, 'issac', 'ISSAC', 'PACHECO', 'PEREZ', 1, '111', 1),
 (2, 'karla', '', '', '', 1, '123', 1),
 (3, 'becky', '', '', '', 1, '111', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE `ventas` (
+  `id` int(1) NOT NULL,
+  `id_usuario_vendio` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `total` decimal(13,2) NOT NULL,
+  `fecha_venta` date DEFAULT NULL,
+  `hora_venta` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -2831,6 +2863,12 @@ ALTER TABLE `categorias`
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2888,6 +2926,14 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_usuario_vendio` (`id_usuario_vendio`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -2910,10 +2956,16 @@ ALTER TABLE `clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -2949,7 +3001,7 @@ ALTER TABLE `prospectos`
 -- AUTO_INCREMENT de la tabla `salidas`
 --
 ALTER TABLE `salidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `unidades_medida`
@@ -2962,6 +3014,23 @@ ALTER TABLE `unidades_medida`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario_vendio`) REFERENCES `clientes` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

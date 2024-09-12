@@ -50,7 +50,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-                <a class="collapse-item" href="javascript:void(0);">Punto de venta</a>
+                <a class="collapse-item" href="javascript:void(0);" onclick="Vista('ventas', 'puntoventa', 'catalogo')">Punto de venta</a>
                 <a class="collapse-item" href="javascript:void(0);">Caja</a>
                 <a class="collapse-item" href="javascript:void(0);">Gastos</a>
                 <a class="collapse-item" href="javascript:void(0);">Cotizaciones</a>

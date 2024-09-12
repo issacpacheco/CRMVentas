@@ -17,3 +17,4 @@ include_once("mysql.class.php");
 include_once("funciones.class.php");
 include_once("crearsesion.class.php");
 include_once("administracion.class.php");
+include_once("puntoventa.class.php");
